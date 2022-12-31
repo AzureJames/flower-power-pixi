@@ -8,14 +8,44 @@
     <script src="https://pixijs.download/release/pixi.js"></script>
     <!-- minify eventually!  -->
 </head>
-<body>
-<h1>Hello</h1>    
+<body>   
 <script defer>
-    let app = new PIXI.Application({ width: 640, height: 360 });
-    document.body.appendChild(app.view);
-    let drum = PIXI.Sprite.from('img/drum.png');
-    app.stage.addChild(drum);
+    //TODO ADD GEN ALGO VANILLA JS....
 
+    let app = new PIXI.Application({ width: 600, height: 600 });
+    document.body.appendChild(app.view);
+
+    //sprites
+    let drum = PIXI.Sprite.from('img/drum.png');
+        drum.x = 250; drum.y = 400;
+    let drumhit = PIXI.Sprite.from('img/drumhit.png');
+    let bg = PIXI.Sprite.from('img/bg.png');
+    let flower = PIXI.Sprite.from('img/flower.png');
+        flower.x = 100; flower.y = 300;
+    let note = PIXI.Sprite.from('img/note.png');
+        // note.anchor.set(0.5, 0.5);
+        note.y = 70; note.x = 500;
+    //drum sound somehow
+
+    app.stage.addChild(bg);
+    app.stage.addChild(note);
+    app.stage.addChild(drum);
+    app.stage.addChild(flower);
+
+
+    //logic vars
+    let circleSpeed = 5;
+    let pts = 0;
+    let flowerHeight = 100;
+
+
+
+    //click drum
+    const Clicked = () => {
+        playSound();
+        setTex(drumhit); 
+        setTimeout(() => setTex(drum), 50);
+    }
 
 
 
@@ -23,12 +53,34 @@
   let elapsed = 0.0;
   // Tell our application's ticker to run a new callback every frame, passing
   // in the amount of time that has passed since the last tick
+ 
+
   app.ticker.add((delta) => {
     // Add the time to our total elapsed time
     elapsed += delta;
     // Update the sprite's X position based on the cosine of our elapsed time.  We divide
     // by 50 to slow the animation down a bit...
-    drum.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
+    // drum.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
+
+    
+    //note animation
+    if (elapsed > 3){
+    note.x = note.x - (delta * circleSpeed); }
+  //usePixiTicker(animate);
+    //THIS MIGHT GO IN THE GAME LOOP
+     console.log(note.x);
+    //reset note
+    if(note.x < -150){
+        note.x = 800;
+    }
+
+    //sweet spot zone
+    if(note.x < 140 && note.x > 30){
+        console.log("hit");
+        pts++;
+        console.log(pts);
+    ;}
+
 
     // All you need to do is to call app.ticker.add(...), pass it a callback function, 
     // and then update your scene in that function. It will get called every frame, 
