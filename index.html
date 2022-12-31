@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <!-- minify eventually!  -->
+</head>
+<body>
+<h1>Hello</h1>    
+<script defer>
+    let app = new PIXI.Application({ width: 640, height: 360 });
+    document.body.appendChild(app.view);
+    let drum = PIXI.Sprite.from('img/drum.png');
+    app.stage.addChild(drum);
+
+
+
+
+     // Add a variable to count up the seconds our demo has been running
+  let elapsed = 0.0;
+  // Tell our application's ticker to run a new callback every frame, passing
+  // in the amount of time that has passed since the last tick
+  app.ticker.add((delta) => {
+    // Add the time to our total elapsed time
+    elapsed += delta;
+    // Update the sprite's X position based on the cosine of our elapsed time.  We divide
+    // by 50 to slow the animation down a bit...
+    drum.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
+
+    // All you need to do is to call app.ticker.add(...), pass it a callback function, 
+    // and then update your scene in that function. It will get called every frame, 
+    // and you can move, rotate etc. whatever you'd like to drive your project's animations.
+    
+  });
+</script>
+</body>
+</html>
