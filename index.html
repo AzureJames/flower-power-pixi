@@ -16,7 +16,10 @@
     document.body.appendChild(app.view);
 
     //sprites
-    let drum = PIXI.Sprite.from('img/drum.png');
+
+    let drumTex = PIXI.Texture.from('img/drum.png');
+    let drumHitTex = PIXI.Texture.from('img/drumhit.png');
+    let drum = PIXI.Sprite.from(drumTex);
         drum.x = 250; drum.y = 400;
     let drumhit = PIXI.Sprite.from('img/drumhit.png');
     let bg = PIXI.Sprite.from('img/bg.png');
@@ -41,34 +44,31 @@
 
 
     //click drum
-    const Clicked = () => {
-        playSound();
-        setTex(drumhit); 
-        setTimeout(() => setTex(drum), 50);
-    }
+    drum.interactive = true;
+    drum.on('click', function (e) {
+        drum.texture = drumHitTex;
+        setTimeout(function (e) {
+            drum.texture = drumTex;
+        }, 80)
+    //     ADD playSound();
+    //     setTex(drumhit); 
+    //     setTimeout(() => setTex(drum), 50);
+    });
+  
 
 
-
-     // Add a variable to count up the seconds our demo has been running
   let elapsed = 0.0;
-  // Tell our application's ticker to run a new callback every frame, passing
-  // in the amount of time that has passed since the last tick
- 
 
   app.ticker.add((delta) => {
     // Add the time to our total elapsed time
     elapsed += delta;
-    // Update the sprite's X position based on the cosine of our elapsed time.  We divide
-    // by 50 to slow the animation down a bit...
-    // drum.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
-
     
     //note animation
     if (elapsed > 3){
     note.x = note.x - (delta * circleSpeed); }
   //usePixiTicker(animate);
     //THIS MIGHT GO IN THE GAME LOOP
-     console.log(note.x);
+     
     //reset note
     if(note.x < -150){
         note.x = 800;
@@ -76,9 +76,9 @@
 
     //sweet spot zone
     if(note.x < 140 && note.x > 30){
-        console.log("hit");
+        //console.log("hit");
         pts++;
-        console.log(pts);
+        //console.log(pts);
     ;}
 
 
