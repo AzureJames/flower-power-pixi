@@ -10,36 +10,65 @@
 </head>
 <body>   
 <script defer>
-    //TODO ADD GEN ALGO VANILLA JS....
+
+    //include gen algo as a module
+    function loadScript(url, callback)
+    {
+        // Adding the script tag to the head as suggested before
+        var head = document.head;
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        // Then bind the event to the callback function.
+        // There are several events for cross browser compatibility.
+        script.onreadystatechange = callback;
+        script.onload = callback;
+        // Fire the loading
+        head.appendChild(script);
+    }
+
+
+var gameCode = function() {
+    //numalgo code works here :)
 
     let app = new PIXI.Application({ width: 600, height: 600 });
     document.body.appendChild(app.view);
 
     //sprites
-
     let drumTex = PIXI.Texture.from('img/drum.png');
     let drumHitTex = PIXI.Texture.from('img/drumhit.png');
     let drum = PIXI.Sprite.from(drumTex);
-        drum.x = 250; drum.y = 400;
+        drum.x = 300; drum.y = 400;
     let drumhit = PIXI.Sprite.from('img/drumhit.png');
     let bg = PIXI.Sprite.from('img/bg.png');
     let flower = PIXI.Sprite.from('img/flower.png');
-        flower.x = 100; flower.y = 300;
-    let note = PIXI.Sprite.from('img/note.png');
+        flower.x = 100; flower.y = 400;
+        flower.height = 70;
+    let note = PIXI.Sprite.from('img/button.png');
         // note.anchor.set(0.5, 0.5);
         note.y = 70; note.x = 500;
+    let stats = new Text('This is a PixiJS text', {
+     fontFamily: 'Arial',
+     fontSize: 24,
+     fill: 0xff1010,
+     align: 'center',
+    });
+    let statsText = new PIXI.Text('Height: 70');
+    statsText.x = 250;
+    statsText.y = 20;
     //drum sound somehow
 
     app.stage.addChild(bg);
     app.stage.addChild(note);
     app.stage.addChild(drum);
     app.stage.addChild(flower);
+    app.stage.addChild(statsText);
 
 
     //logic vars
     let circleSpeed = 5;
     let pts = 0;
-    let flowerHeight = 100;
+    let flowerHeight = 40;
 
 
 
@@ -53,8 +82,27 @@
     //     ADD playSound();
     //     setTex(drumhit); 
     //     setTimeout(() => setTex(drum), 50);
+
+    //sweet spot zone
+    if(note.x < 130 && note.x > -10){
+        //console.log("hit");
+        //EVENTUALLY, IF CLICK HAPPENS IN THIS ZONE, RUN THE GEN ALGO
+        //FOR ANOTHER GENERATION AND CHANGE THE FLOWER WITH IT
+        for (let i = 0; i < 20; i++) {
+        generate(28, "cccl", 0.05, i);
+        //c: center, leaves, petals, color
+        //L: height, convert to ASCII char again for px height
+        //Select first element of population for flower stats.
+        flower.height = heightt;
+        statsText.text = "Height: " + heightt;
+    }
+        pts++;
+        //console.log(pts);
+    ;}
+
+//MAYBE ADD UP A POINT SYSTEM SO EVERY FLOWER ADDS TO IT
+
     });
-  
 
 
   let elapsed = 0.0;
@@ -74,19 +122,18 @@
         note.x = 800;
     }
 
-    //sweet spot zone
-    if(note.x < 140 && note.x > 30){
-        //console.log("hit");
-        pts++;
-        //console.log(pts);
-    ;}
-
-
     // All you need to do is to call app.ticker.add(...), pass it a callback function, 
     // and then update your scene in that function. It will get called every frame, 
     // and you can move, rotate etc. whatever you'd like to drive your project's animations.
     
   });
+};
+
+loadScript("components/NumAlgo.js", gameCode);
+
 </script>
+<!-- <script type="text/javascript" src="components/Algo.js" defer></script> -->
 </body>
 </html>
+
+ 
