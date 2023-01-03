@@ -41,7 +41,9 @@ var gameCode = function() {
         drum.x = 300; drum.y = 400;
     let drumhit = PIXI.Sprite.from('img/drumhit.png');
     let bg = PIXI.Sprite.from('img/bg.png');
-    let flower = PIXI.Sprite.from('img/flower.png');
+    let newTex;
+    let flowerTex = PIXI.Texture.from('img/flower.png');
+    let flower = PIXI.Sprite.from(flowerTex);
         flower.x = 100; flower.y = 400;
         flower.height = 70;
     let note = PIXI.Sprite.from('img/button.png');
@@ -56,6 +58,24 @@ var gameCode = function() {
     let statsText = new PIXI.Text('Height: 70');
     statsText.x = 250;
     statsText.y = 20;
+
+    //Flower gene traits
+    let flowerBreed;
+    let leaves;
+    let flowerColor;
+    let flowerHgt;
+    let shortFlowerGene = 'zzzz';
+
+    //flags for flower traits
+    let flag1 = true;
+    let flag2 = true;
+    let flag3 = true;
+    let rnd = 0;
+
+
+    //gen algo
+    let generations = 1;
+
     //drum sound somehow
 
     app.stage.addChild(bg);
@@ -88,21 +108,174 @@ var gameCode = function() {
         //console.log("hit");
         //EVENTUALLY, IF CLICK HAPPENS IN THIS ZONE, RUN THE GEN ALGO
         //FOR ANOTHER GENERATION AND CHANGE THE FLOWER WITH IT
-        for (let i = 0; i < 20; i++) {
-        generate(28, "cccl", 0.05, i);
+        generations++;
+        generate(130, "ruhp", 0.05, generations);
+        console.log(generations);
         //c: center, leaves, petals, color
         //L: height, convert to ASCII char again for px height
         //Select first element of population for flower stats.
         flower.height = heightt;
         statsText.text = "Height: " + heightt;
-    }
+
+
+        //section ab setting flower img
+
+        //set bounded #s based on flower result                                                          
+        flowerBreed = flowerRes[0].charCodeAt() % 8;
+        leaves = flowerRes[1].charCodeAt() % 3;
+        flowerColor = flowerRes[2].charCodeAt() % 4;
+        flowerHgt = flowerRes[3].charCodeAt() % 2;
+
+        //convert the flower traits from numbers to commonly used letters
+        const chgChar = (pos, char) => {
+            shortFlowerGene = shortFlowerGene.split('');
+            shortFlowerGene[pos] = char;
+            shortFlowerGene = shortFlowerGene.join('');
+        }
+
+        flag1 = true;
+        flag2 = true;
+        flag3 = true;
+
+        switch(flowerBreed) { //FLOWER BREED, ideally answer is obpt/ruhp: 72, 75, 68, 70 (divisible by the moduli) 
+            case 0:
+                chgChar(0, 'o');
+                chgChar(3, 't'); //orchid always tall
+                flag3 = false;
+            break;
+            case 1:
+                chgChar(0, 's');
+                chgChar(2, 'y'); //sunflower = ylw
+                flag2 = false;
+            break;
+            case 2: //normally hybrid
+                rnd = Math.random();
+                rnd = Math.round(rnd * 5);
+                switch(rnd) { //random to assign either a hybrid or regular one
+                    case 0:
+                        chgChar(0, 'o'); //set orchid cause there's more
+                        chgChar(3, 't'); //orchid always tall
+                        flag3 = false;
+                    break;
+                    case 1:
+                        chgChar(0, 'o'); //set orchid cause there's more
+                        chgChar(3, 't'); //orchid always tall
+                        flag3 = false;
+                    break;
+                    case 2:
+                        chgChar(0, 's'); //set sunflower
+                        chgChar(2, 'y'); //sunflower = ylw
+                        flag2 = false;
+                    break;
+                    case 3:
+                        shortFlowerGene = 'urps';
+                    break;
+                    case 4:
+                        shortFlowerGene = 'uryt';
+                    break;
+                    case 5:
+                        shortFlowerGene = 'uspt';
+                    break;
+                }
+                chgChar(0, 'o');
+                chgChar(3, 't'); //orchid always tall
+                flag3 = false;
+            break;
+                flag1 = false; flag2 = false; flag3 = false; rnd = 0; //skip rest
+            break;
+            case 3:
+                chgChar(0, 'q');
+                chgChar(3, 't'); //orchid+tigerlily always tall
+                flag3 = false;
+            break;
+            case 4:
+                shortFlowerGene = 'dbys';
+                flag1 = false; flag2 = false; flag3 = false; //skip rest
+            break;
+            case 5:
+                chgChar(0, 'o'); //no 'none' flower...
+            break;
+            case 6:
+                shortFlowerGene = 'csns';
+                flag1 = false; flag2 = false; flag3 = false; //skip rest
+            break;
+            case 7:
+                chgChar(0, 'h');
+                chgChar(2, 'p'); //hibiscus = pink
+                flag2 = false;
+            break;
+            default:
+                chgChar(0, 'o');
+            break; 
+        }
+
+        if (flag1 == true){
+            switch(leaves) { //LEAVES
+                case 0:
+                    chgChar(1, 'b');
+                break;
+                case 1:
+                    chgChar(1, 's');
+                break;
+                case 2:
+                    chgChar(1, 'r');
+                break;
+            }
+        }
+
+        if (flag2 == true){
+            switch(flowerColor) { //FLOWER COLOR
+                case 0:
+                    chgChar(2, 'n');
+                break;
+                case 1:
+                    chgChar(2, 'w');
+                break;
+                case 2:
+                    chgChar(2, 'p');
+                break;
+                case 3:
+                    chgChar(2, 'y');
+                break;
+            }
+        }
+
+        if (flag3 == true){
+            switch(flowerHgt) { //FLR HEIGHT
+                case 0:
+                    chgChar(3, 's');
+                break;
+                case 1:
+                    chgChar(3, 't');
+                break;
+            }
+        }
+
+        flag1 = true;
+        flag2 = true;
+        flag3 = true;
+
+        console.log("new:"+shortFlowerGene);
+        let imag = `img/slices/${shortFlowerGene}.png`;
+        // if(imag.height == 0 || imag.height == undefined){
+        //     newTex = PIXI.Texture.from(`img/slices/obpt.png`);
+        // }
+        // else {
+            newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
+        // }
+        statsText.text = "gene: " + shortFlowerGene;
+        // newTex = PIXI.Texture.from(`img/slices/obpt.png`);
+        flower.texture = newTex;
+        //add gene allele text acgt. add more data on allele presentations
         pts++;
+    }
+
         //console.log(pts);
-    ;}
+    ;})
 
 //MAYBE ADD UP A POINT SYSTEM SO EVERY FLOWER ADDS TO IT
 
-    });
+    
 
 
   let elapsed = 0.0;

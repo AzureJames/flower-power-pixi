@@ -2,7 +2,7 @@
 'use strict';
 
 let heightt = 0;
-
+let flowerRes = "";
 
 // Src: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function random(min, max) {
@@ -130,7 +130,9 @@ function generate(populationSize, target, mutationRate, generations) {
   const perfectCandidatesNum = membersKeys.filter((w) => w === target);
 
   // Print the results
-  console.log(membersKeys[0]); //THE ONE THAT EFFECTS FLOWER
+  //console.log(membersKeys[0]); //THE ONE THAT EFFECTS FLOWER
+  flowerRes = membersKeys[0];
+  console.log(flowerRes);
 
   if (membersKeys[0][3] == 'l') {  //height optimally is L, assign flower heightt var to letter
     heightt = 150;
