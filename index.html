@@ -44,7 +44,7 @@ var gameCode = function() {
     let newTex;
     let flowerTex = PIXI.Texture.from('img/flower.png');
     let flower = PIXI.Sprite.from(flowerTex);
-        flower.x = 100; flower.y = 400;
+        flower.x = 20; flower.y = 300;
         flower.height = 70;
     let note = PIXI.Sprite.from('img/button.png');
         // note.anchor.set(0.5, 0.5);
@@ -114,7 +114,9 @@ var gameCode = function() {
         //c: center, leaves, petals, color
         //L: height, convert to ASCII char again for px height
         //Select first element of population for flower stats.
+        heightt *= 1.9; //match sprite hgt
         flower.height = heightt;
+        
         statsText.text = "Height: " + heightt;
 
 
