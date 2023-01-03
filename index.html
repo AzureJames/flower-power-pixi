@@ -103,13 +103,15 @@ var gameCode = function() {
     //     setTex(drumhit); 
     //     setTimeout(() => setTex(drum), 50);
 
-    //sweet spot zone
-    if(note.x < 130 && note.x > -10){
+
+    
+    //sweet spot zone //CHG
+    // if(note.x < 130 && note.x > -10){
         //console.log("hit");
         //EVENTUALLY, IF CLICK HAPPENS IN THIS ZONE, RUN THE GEN ALGO
         //FOR ANOTHER GENERATION AND CHANGE THE FLOWER WITH IT
         generations++;
-        generate(130, "ruhp", 0.05, generations);
+        generate(130, "prrn", 0.05, generations); //used to be ruhp
         console.log(generations);
         //c: center, leaves, petals, color
         //L: height, convert to ASCII char again for px height
@@ -128,6 +130,7 @@ var gameCode = function() {
         flowerColor = flowerRes[2].charCodeAt() % 4;
         flowerHgt = flowerRes[3].charCodeAt() % 2;
 
+
         //convert the flower traits from numbers to commonly used letters
         const chgChar = (pos, char) => {
             shortFlowerGene = shortFlowerGene.split('');
@@ -139,7 +142,7 @@ var gameCode = function() {
         flag2 = true;
         flag3 = true;
 
-        switch(flowerBreed) { //FLOWER BREED, ideally answer is obpt/ruhp: 72, 75, 68, 70 (divisible by the moduli) 
+        switch(flowerBreed) { //FLOWER BREED, ideally answer is obpt/ruhp: 112, 114, 114, 110 (divisible by the moduli) 97-121
             case 0:
                 chgChar(0, 'o');
                 chgChar(3, 't'); //orchid always tall
@@ -257,27 +260,21 @@ var gameCode = function() {
         flag2 = true;
         flag3 = true;
 
-        console.log("new:"+shortFlowerGene);
-        let imag = `img/slices/${shortFlowerGene}.png`;
-        // if(imag.height == 0 || imag.height == undefined){
-        //     newTex = PIXI.Texture.from(`img/slices/obpt.png`);
-        // }
-        // else {
-            newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
+        //console.log("new:"+shortFlowerGene);
+
+        newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
         // }
         statsText.text = "gene: " + shortFlowerGene;
         // newTex = PIXI.Texture.from(`img/slices/obpt.png`);
         flower.texture = newTex;
         //add gene allele text acgt. add more data on allele presentations
         pts++;
-    }
+    // }
 
         //console.log(pts);
     ;})
 
 //MAYBE ADD UP A POINT SYSTEM SO EVERY FLOWER ADDS TO IT
-
-    
 
 
   let elapsed = 0.0;
