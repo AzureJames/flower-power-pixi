@@ -105,8 +105,8 @@ var gameCode = function() {
 
 
     
-    //sweet spot zone //CHG
-    // if(note.x < 130 && note.x > -10){
+    //sweet spot zone 
+     if(note.x < 130 && note.x > -10){
         //console.log("hit");
         //EVENTUALLY, IF CLICK HAPPENS IN THIS ZONE, RUN THE GEN ALGO
         //FOR ANOTHER GENERATION AND CHANGE THE FLOWER WITH IT
@@ -269,7 +269,7 @@ var gameCode = function() {
         flower.texture = newTex;
         //add gene allele text acgt. add more data on allele presentations
         pts++;
-    // }
+     }
 
         //console.log(pts);
     ;})
