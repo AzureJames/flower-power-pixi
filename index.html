@@ -55,9 +55,15 @@ var gameCode = function() {
      fill: 0xff1010,
      align: 'center',
     });
-    let statsText = new PIXI.Text('Height: 70');
-    statsText.x = 250;
-    statsText.y = 20;
+    let statsText = new PIXI.Text('traits: ');
+    statsText.x = 150;
+    statsText.y = 00;
+    let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
+    geneText.x = 150;
+    geneText.y = 30;
+    let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
+    tgtGeneText.x = 150;
+    tgtGeneText.y = 50;
 
     //Flower gene traits
     let flowerBreed;
@@ -71,6 +77,7 @@ var gameCode = function() {
     let flag2 = true;
     let flag3 = true;
     let rnd = 0;
+    let geneString = "";
 
 
     //gen algo
@@ -83,7 +90,8 @@ var gameCode = function() {
     app.stage.addChild(drum);
     app.stage.addChild(flower);
     app.stage.addChild(statsText);
-
+    app.stage.addChild(geneText);
+    app.stage.addChild(tgtGeneText);
 
     //logic vars
     let circleSpeed = 5;
@@ -110,8 +118,8 @@ var gameCode = function() {
         //console.log("hit");
         //EVENTUALLY, IF CLICK HAPPENS IN THIS ZONE, RUN THE GEN ALGO
         //FOR ANOTHER GENERATION AND CHANGE THE FLOWER WITH IT
-        generations++;
-        generate(130, "prrn", 0.05, generations); //used to be ruhp
+        generations += .4; //it gets too good if ++
+        generate(130, "prrn", 0.05, Math.round(generations)); //used to be ruhp
         console.log(generations);
         //c: center, leaves, petals, color
         //L: height, convert to ASCII char again for px height
@@ -260,11 +268,14 @@ var gameCode = function() {
         flag2 = true;
         flag3 = true;
 
+        genestring = convertToGeneSequence(shortFlowerGene);
+
         //console.log("new:"+shortFlowerGene);
 
         newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
         // }
-        statsText.text = "gene: " + shortFlowerGene;
+        statsText.text = "traits: " + shortFlowerGene;
+        geneText.text = "gene: " + convertToGeneSequence(shortFlowerGene);
         // newTex = PIXI.Texture.from(`img/slices/obpt.png`);
         flower.texture = newTex;
         //add gene allele text acgt. add more data on allele presentations
@@ -276,7 +287,7 @@ var gameCode = function() {
 
 //MAYBE ADD UP A POINT SYSTEM SO EVERY FLOWER ADDS TO IT
 
-
+//GAME LOOP
   let elapsed = 0.0;
 
   app.ticker.add((delta) => {

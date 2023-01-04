@@ -4,7 +4,38 @@
 let heightt = 0;
 let flowerRes = "";
 
-// Src: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+//start gene converter
+function convertToGeneSequence(chars) {
+  console.log("strt");
+  const geneSequenceMap = {
+    c: "CCCC",
+    t: "TTTA",
+    b: "ACAC",
+    d: "AGAG",
+    h: "ATTT",
+    n: "AGTA",
+    o: "ATAA",
+    p: "ACAT",
+    q: "AGGG",
+    r: "AGTT",
+    s: "CTCA",
+    u: "GTAA",
+    w: "GGGC",
+    y: "CTTA",
+  };
+  let geneSequence = "";
+  for (const char of chars) {
+    geneSequence += geneSequenceMap[char];
+  }
+  console.log(geneSequence);
+  return geneSequence;
+}
+
+console.log("goal:"+ convertToGeneSequence("obpt"));
+
+//end gene converter
+
+
 function random(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
