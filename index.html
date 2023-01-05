@@ -29,23 +29,22 @@
 
 
 var gameCode = function() {
-    //numalgo code works here :)
 
-    let app = new PIXI.Application({ width: 600, height: 600 });
+    let app = new PIXI.Application({ width: 400, height: 800 });
     document.body.appendChild(app.view);
 
     //sprites
     let drumTex = PIXI.Texture.from('img/drum.png');
     let drumHitTex = PIXI.Texture.from('img/drumhit.png');
     let drum = PIXI.Sprite.from(drumTex);
-        drum.x = 300; drum.y = 400;
+        drum.x = 270; drum.y = 400;
     let drumhit = PIXI.Sprite.from('img/drumhit.png');
     let bg = PIXI.Sprite.from('img/bg.png');
     let newTex;
-    let flowerTex = PIXI.Texture.from('img/flower.png');
+    let flowerTex = PIXI.Texture.from('img/slices/obpt.png');
     let flower = PIXI.Sprite.from(flowerTex);
-        flower.x = 20; flower.y = 300;
-        flower.height = 70;
+        flower.x = 15; flower.y = 300;
+        flower.height = 240;
     let note = PIXI.Sprite.from('img/button.png');
         // note.anchor.set(0.5, 0.5);
         note.y = 70; note.x = 500;
@@ -55,15 +54,18 @@ var gameCode = function() {
      fill: 0xff1010,
      align: 'center',
     });
-    let statsText = new PIXI.Text('traits: ');
-    statsText.x = 150;
-    statsText.y = 00;
+    let statsText = new PIXI.Text('traits',{ fontSize: 10});
+    statsText.x = 15;
+    statsText.y = 550;
     let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
-    geneText.x = 150;
-    geneText.y = 30;
+    geneText.x = 15;
+    geneText.y = 600;
+    let tgtGeneTextGreen = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
+    tgtGeneTextGreen.x = 15;
+    tgtGeneTextGreen.y = 620;
     let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
-    tgtGeneText.x = 150;
-    tgtGeneText.y = 50;
+    tgtGeneText.x = 15;
+    tgtGeneText.y = 620;
 
     //Flower gene traits
     let flowerBreed;
@@ -98,7 +100,9 @@ var gameCode = function() {
     let pts = 0;
     let flowerHeight = 40;
 
-
+    //AT THE BEGINNING IT WILL HAVE A SCREEN WITH TUTORIAL EXPLANATION TEXT AND A PICTURE OF GOAL ORCHID.
+    //maybe REUSE TEXT AND FLOWER SPRITE AND MOVE THEM AND CHANGE .TEXT
+    //ALSO I SHOULD USE THAT SPECIAL NIGHTCAFE START SCREEN AND MAYBE DRUM WILL BE THE START BUTTON IF STARTSCREEN
 
     //click drum
     drum.interactive = true;
@@ -108,16 +112,11 @@ var gameCode = function() {
             drum.texture = drumTex;
         }, 80)
     //     ADD playSound();
-    //     setTex(drumhit); 
-    //     setTimeout(() => setTex(drum), 50);
 
 
     
     //sweet spot zone 
      if(note.x < 130 && note.x > -10){
-        //console.log("hit");
-        //EVENTUALLY, IF CLICK HAPPENS IN THIS ZONE, RUN THE GEN ALGO
-        //FOR ANOTHER GENERATION AND CHANGE THE FLOWER WITH IT
         generations += .4; //it gets too good if ++
         generate(130, "prrn", 0.05, Math.round(generations)); //used to be ruhp
         console.log(generations);
@@ -130,7 +129,7 @@ var gameCode = function() {
         statsText.text = "Height: " + heightt;
 
 
-        //section ab setting flower img
+        //SECTION ab setting flower img
 
         //set bounded #s based on flower result                                                          
         flowerBreed = flowerRes[0].charCodeAt() % 8;
@@ -146,9 +145,7 @@ var gameCode = function() {
             shortFlowerGene = shortFlowerGene.join('');
         }
 
-        flag1 = true;
-        flag2 = true;
-        flag3 = true;
+        flag1 = true; flag2 = true; flag3 = true;
 
         switch(flowerBreed) { //FLOWER BREED, ideally answer is obpt/ruhp: 112, 114, 114, 110 (divisible by the moduli) 97-121
             case 0:
@@ -264,21 +261,20 @@ var gameCode = function() {
             }
         }
 
-        flag1 = true;
-        flag2 = true;
+        flag1 = true; flag2 = true;
         flag3 = true;
 
         genestring = convertToGeneSequence(shortFlowerGene);
 
-        //console.log("new:"+shortFlowerGene);
-
         newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
-        // }
-        statsText.text = "traits: " + shortFlowerGene;
+
+        statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
+        
+        if(shortFlowerGene == "obpt"){     app.stage.addChild(tgtGeneTextGreen); }
+        else { app.stage.removeChild(tgtGeneTextGreen);  }
         geneText.text = "gene: " + convertToGeneSequence(shortFlowerGene);
-        // newTex = PIXI.Texture.from(`img/slices/obpt.png`);
         flower.texture = newTex;
-        //add gene allele text acgt. add more data on allele presentations
+        //add LOOKUP TABLE TO REALLY SHOW TRAITS??
         pts++;
      }
 
