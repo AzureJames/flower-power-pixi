@@ -63,6 +63,9 @@ var gameCode = function() {
     let tgtGeneTextGreen = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
     tgtGeneTextGreen.x = 15;
     tgtGeneTextGreen.y = 620;
+    let yourGeneTextGreen = new PIXI.Text('gene: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
+    yourGeneTextGreen.x = 15;
+    yourGeneTextGreen.y = 600;
     let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
     tgtGeneText.x = 15;
     tgtGeneText.y = 620;
@@ -270,8 +273,12 @@ var gameCode = function() {
 
         statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
         
-        if(shortFlowerGene == "obpt"){     app.stage.addChild(tgtGeneTextGreen); }
-        else { app.stage.removeChild(tgtGeneTextGreen);  }
+        if(shortFlowerGene == "obpt"){     
+            app.stage.addChild(tgtGeneTextGreen);
+            app.stage.addChild(yourGeneTextGreen); }
+        else { app.stage.removeChild(tgtGeneTextGreen);
+               app.stage.removeChild(yourGeneTextGreen);  }
+
         geneText.text = "gene: " + convertToGeneSequence(shortFlowerGene);
         flower.texture = newTex;
         //add LOOKUP TABLE TO REALLY SHOW TRAITS??
