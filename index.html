@@ -277,11 +277,11 @@ var gameCode = function() {
 
         statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
         
-        //POINT ADDER
-        if(shortFlowerGene[0] == 'o'){pts++;}
-        if(shortFlowerGene[1] == 'b'){pts++;}
-        if(shortFlowerGene[2] == 'p'){pts++;}
-        if(shortFlowerGene[3] == 't'){pts++;}
+        //POINT ADDER maybe if perfect plant add multiplier 1.1x too...
+        if(shortFlowerGene[0] == 'o'){pts+= 1000;}
+        if(shortFlowerGene[1] == 'b'){pts+= 1000;}
+        if(shortFlowerGene[2] == 'p'){pts+= 1000;}
+        if(shortFlowerGene[3] == 't'){pts+= 1000;}
         ptsText.text = "points: " + pts;
 
         if(shortFlowerGene == "obpt"){     
