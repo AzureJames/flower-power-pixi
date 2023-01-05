@@ -57,6 +57,9 @@ var gameCode = function() {
     let statsText = new PIXI.Text('traits',{ fontSize: 10});
     statsText.x = 15;
     statsText.y = 550;
+    let ptsText = new PIXI.Text('points: 0',{ fontSize: 10});
+    ptsText.x = 15;
+    ptsText.y = 530;
     let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
     geneText.x = 15;
     geneText.y = 600;
@@ -95,6 +98,7 @@ var gameCode = function() {
     app.stage.addChild(drum);
     app.stage.addChild(flower);
     app.stage.addChild(statsText);
+    app.stage.addChild(ptsText);
     app.stage.addChild(geneText);
     app.stage.addChild(tgtGeneText);
 
@@ -273,6 +277,13 @@ var gameCode = function() {
 
         statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
         
+        //POINT ADDER
+        if(shortFlowerGene[0] == 'o'){pts++;}
+        if(shortFlowerGene[1] == 'b'){pts++;}
+        if(shortFlowerGene[2] == 'p'){pts++;}
+        if(shortFlowerGene[3] == 't'){pts++;}
+        ptsText.text = "points: " + pts;
+
         if(shortFlowerGene == "obpt"){     
             app.stage.addChild(tgtGeneTextGreen);
             app.stage.addChild(yourGeneTextGreen); }
@@ -282,7 +293,7 @@ var gameCode = function() {
         geneText.text = "gene: " + convertToGeneSequence(shortFlowerGene);
         flower.texture = newTex;
         //add LOOKUP TABLE TO REALLY SHOW TRAITS??
-        pts++;
+        
      }
 
         //console.log(pts);
