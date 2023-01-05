@@ -106,7 +106,7 @@ var gameCode = function() {
 
     //click drum
     drum.interactive = true;
-    drum.on('click', function (e) {
+    drum.on('pointerdown', function (e) {
         drum.texture = drumHitTex;
         setTimeout(function (e) {
             drum.texture = drumTex;
