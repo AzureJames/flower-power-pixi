@@ -39,7 +39,7 @@ var gameCode = function() {
     let drum = PIXI.Sprite.from(drumTex);
         drum.x = 270; drum.y = 400;
     let drumhit = PIXI.Sprite.from('img/drumhit.png');
-    let bg = PIXI.Sprite.from('img/bg.png');
+    let bg = PIXI.Sprite.from('img/background.jpg');
     let newTex;
     let flowerTex = PIXI.Texture.from('img/slices/obpt.png');
     let flower = PIXI.Sprite.from(flowerTex);
@@ -47,7 +47,7 @@ var gameCode = function() {
         flower.height = 240;
     let note = PIXI.Sprite.from('img/button.png');
         // note.anchor.set(0.5, 0.5);
-        note.y = 70; note.x = 500;
+        note.y = 72; note.x = 500;
     let stats = new Text('This is a PixiJS text', {
      fontFamily: 'Arial',
      fontSize: 24,
@@ -105,6 +105,7 @@ var gameCode = function() {
     //logic vars
     let circleSpeed = 5;
     let pts = 0;
+    let goalFlower = 0;
     let flowerHeight = 40;
   
     //AT THE BEGINNING IT WILL HAVE A SCREEN WITH TUTORIAL EXPLANATION TEXT AND A PICTURE OF GOAL ORCHID.
@@ -278,10 +279,12 @@ var gameCode = function() {
         statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
         
         //POINT ADDER maybe if perfect plant add multiplier 1.1x too...
+        if(shortFlowerGene == 'obpt'){pts *= 1.1; pts = Math.round(pts); goalFlower++;}
         if(shortFlowerGene[0] == 'o'){pts+= 1000;}
         if(shortFlowerGene[1] == 'b'){pts+= 1000;}
         if(shortFlowerGene[2] == 'p'){pts+= 1000;}
         if(shortFlowerGene[3] == 't'){pts+= 1000;}
+
         ptsText.text = "points: " + pts;
 
         if(shortFlowerGene == "obpt"){     
