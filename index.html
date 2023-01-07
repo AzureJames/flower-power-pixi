@@ -57,22 +57,22 @@ var gameCode = function() {
      align: 'center',
     });
 
-    let ptsText = new PIXI.Text('Flower Power uses a genetic algorithm to create flowers.',{ fontSize: 12});
+    let ptsText = new PIXI.Text('Flower Power uses a genetic algorithm to create flowers.',{ fontSize: 14});
     ptsText.x = 15;
     ptsText.y = 230;
-    let statsText = new PIXI.Text('Click the watering can when the purple disk is in the target area. \n\nGoal flower:',{ fontSize: 12});
+    let statsText = new PIXI.Text('Click the watering can when the purple disk\nis in the target area. \n\nGoal flower:',{ fontSize: 14});
     statsText.x = 15;
     statsText.y = 250;
-    let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 20, fill : 0x20124d});
+    let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 22, fill : 0x20124d});
     geneText.x = 15;
     geneText.y = 600;
-    let tgtGeneTextGreen = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
+    let tgtGeneTextGreen = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 22, fill : 0x55ee1b});
     tgtGeneTextGreen.x = 15;
     tgtGeneTextGreen.y = 620;
-    let yourGeneTextGreen = new PIXI.Text('gene: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
+    let yourGeneTextGreen = new PIXI.Text('gene: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 22, fill : 0x55ee1b});
     yourGeneTextGreen.x = 15;
     yourGeneTextGreen.y = 600;
-    let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x20124d});
+    let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 22, fill : 0x20124d});
     tgtGeneText.x = 15;
     tgtGeneText.y = 670;
     let easyBtn = new PIXI.Text("START: \nLeisure (easy)", { fill : 0x20124d });
@@ -82,11 +82,11 @@ var gameCode = function() {
     let medBtn = new PIXI.Text("Green Thumb (medium)", { fill : 0x20124d });
     medBtn.interactive = true;
     medBtn.x = 15;
-    medBtn.y = 610;
+    medBtn.y = 615;
     let hardBtn = new PIXI.Text("Master Gardener (impossible)", { fill : 0x20124d });
     hardBtn.interactive = true;
     hardBtn.x = 15;
-    hardBtn.y = 640;
+    hardBtn.y = 650;
 
     //Flower gene traits
     let flowerBreed;
@@ -356,9 +356,9 @@ if (scene === 2){
         
      }
         //WIN CONDITION
-        if (pts > 200000){
+        if (pts > 20000){
             geneText.y = 200;
-            geneText.text = "YOU WIN! POINTS: " + pts;
+            geneText.text = "YOU WIN! POINTS: " + pts + "\nWinning orchids: " + goalFlower;
             circleSpeed = 0;
             note.x = -100;
         }
