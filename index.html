@@ -57,13 +57,13 @@ var gameCode = function() {
      align: 'center',
     });
 
-    let ptsText = new PIXI.Text('Click the watering can when the purple disk is in the target area.',{ fontSize: 12});
+    let ptsText = new PIXI.Text('Flower Power uses a genetic algorithm to create flowers.',{ fontSize: 12});
     ptsText.x = 15;
     ptsText.y = 230;
-    let statsText = new PIXI.Text('This game uses a genetic algorithm to create flowers. \n\nGoal flower:',{ fontSize: 12});
+    let statsText = new PIXI.Text('Click the watering can when the purple disk is in the target area. \n\nGoal flower:',{ fontSize: 12});
     statsText.x = 15;
     statsText.y = 250;
-    let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
+    let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 20, fill : 0x20124d});
     geneText.x = 15;
     geneText.y = 600;
     let tgtGeneTextGreen = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
@@ -72,18 +72,18 @@ var gameCode = function() {
     let yourGeneTextGreen = new PIXI.Text('gene: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x55ee1b});
     yourGeneTextGreen.x = 15;
     yourGeneTextGreen.y = 600;
-    let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0xff1010});
+    let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 20, fill : 0x20124d});
     tgtGeneText.x = 15;
     tgtGeneText.y = 670;
-    let easyBtn = new PIXI.Text("Mode: \nLeisure");
+    let easyBtn = new PIXI.Text("START: \nLeisure (easy)", { fill : 0x20124d });
     easyBtn.interactive = true;
     easyBtn.x = 15;
     easyBtn.y = 550;
-    let medBtn = new PIXI.Text("Green Thumb");
+    let medBtn = new PIXI.Text("Green Thumb (medium)", { fill : 0x20124d });
     medBtn.interactive = true;
     medBtn.x = 15;
     medBtn.y = 610;
-    let hardBtn = new PIXI.Text("Master Gardener (impossible)");
+    let hardBtn = new PIXI.Text("Master Gardener (impossible)", { fill : 0x20124d });
     hardBtn.interactive = true;
     hardBtn.x = 15;
     hardBtn.y = 640;
@@ -115,7 +115,8 @@ var gameCode = function() {
     app.stage.addChild(statsText);
     app.stage.addChild(ptsText);
 
-    app.stage.addChild(tgtGeneText);
+
+
     app.stage.addChild(easyBtn);
     app.stage.addChild(medBtn);
     app.stage.addChild(hardBtn);
@@ -164,6 +165,7 @@ if (scene === 2){
 
     app.stage.addChild(drum);
     app.stage.addChild(geneText);
+    app.stage.addChild(tgtGeneText);
 
     flower.texture = stFlowerTex;
 
@@ -331,7 +333,7 @@ if (scene === 2){
 
         newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
 
-        statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
+        statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + "\ncolor: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + "\nheight: " + Math.round(heightt);
         
         //POINT ADDER maybe if perfect plant add multiplier 1.1x too...
         if(shortFlowerGene == 'obpt'){pts *= 1.1; pts = Math.round(pts); goalFlower++;}
@@ -340,7 +342,7 @@ if (scene === 2){
         if(shortFlowerGene[2] == 'p'){pts+= 1000;}
         if(shortFlowerGene[3] == 't'){pts+= 1000;}
 
-        ptsText.text = "points: " + pts;
+        ptsText.text = "POINTS: " + pts;
 
         if(shortFlowerGene == "obpt"){     
             app.stage.addChild(tgtGeneTextGreen);
@@ -353,7 +355,13 @@ if (scene === 2){
         //add LOOKUP TABLE TO REALLY SHOW TRAITS??
         
      }
-
+        //WIN CONDITION
+        if (pts > 200000){
+            geneText.y = 200;
+            geneText.text = "YOU WIN! POINTS: " + pts;
+            circleSpeed = 0;
+            note.x = -100;
+        }
         //console.log(pts);
     ;})
 }
