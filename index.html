@@ -48,6 +48,9 @@ var gameCode = function() {
     let flower = PIXI.Sprite.from(flowerTex);
         flower.x = 5; flower.y = 300;
         flower.height = 240;
+    let tutImg = PIXI.Sprite.from('img/tutorialpic.jpg');
+    tutImg.x = 15; tutImg.y = 1;
+    tutImg.height = 220; tutImg.width = 220;
     let note = PIXI.Sprite.from('img/button.png');
         // note.anchor.set(0.5, 0.5);
         note.y = 72; note.x = 500;
@@ -115,8 +118,8 @@ var gameCode = function() {
     app.stage.addChild(flower);
     app.stage.addChild(statsText);
     app.stage.addChild(ptsText);
-
-
+    app.stage.addChild(tutImg);
+    app.stage.addChild(drum);
 
     app.stage.addChild(easyBtn);
     app.stage.addChild(medBtn);
@@ -163,8 +166,8 @@ if (scene === 2){
     app.stage.removeChild(easyBtn);
     app.stage.removeChild(medBtn);
     app.stage.removeChild(hardBtn);
+    app.stage.removeChild(tutImg);
 
-    app.stage.addChild(drum);
     app.stage.addChild(geneText);
     app.stage.addChild(tgtGeneText);
 
