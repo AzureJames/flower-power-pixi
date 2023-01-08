@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Flower Power is a rhythm game that generates unique flowers from a genetic algorithm.">
+    <title>Flower Power</title>
     <script src="https://pixijs.download/release/pixi.js"></script>
     <!-- minify eventually!  -->
 </head>
@@ -31,7 +32,7 @@
 
 var gameCode = function() {
 
-    let app = new PIXI.Application({ width: 400, height: 800 });
+    let app = new PIXI.Application({ width: 500, height: 800 });
     document.body.appendChild(app.view);
 
     //sprites
@@ -47,6 +48,9 @@ var gameCode = function() {
     let flower = PIXI.Sprite.from(flowerTex);
         flower.x = 5; flower.y = 300;
         flower.height = 240;
+    let tutImg = PIXI.Sprite.from('img/tutorialpic.jpg');
+    tutImg.x = 15; tutImg.y = 1;
+    tutImg.height = 220; tutImg.width = 220;
     let note = PIXI.Sprite.from('img/button.png');
         // note.anchor.set(0.5, 0.5);
         note.y = 72; note.x = 500;
@@ -57,12 +61,12 @@ var gameCode = function() {
      align: 'center',
     });
 
-    let ptsText = new PIXI.Text('Flower Power uses a genetic algorithm to create flowers.',{ fontSize: 14});
+    let ptsText = new PIXI.Text('Flower Power uses a genetic algorithm to create flowers.',{ fontSize: 16,  fontFamily: 'Verdana', fontStyle: 'italic'});
     ptsText.x = 15;
-    ptsText.y = 230;
-    let statsText = new PIXI.Text('Click the watering can when the purple disk\nis in the target area. \n\nGoal flower:',{ fontSize: 14});
+    ptsText.y = 220;
+    let statsText = new PIXI.Text('Click the watering can when the purple disk\nis in the target area. \nGoal flower:',{ fontSize: 16, fontFamily: 'Verdana', fontStyle: 'italic'});
     statsText.x = 15;
-    statsText.y = 250;
+    statsText.y = 240;
     let geneText = new PIXI.Text('gene: ',{fontFamily : 'Courier', fontSize: 22, fill : 0x20124d});
     geneText.x = 15;
     geneText.y = 600;
@@ -75,18 +79,18 @@ var gameCode = function() {
     let tgtGeneText = new PIXI.Text('goal: ATAAACACACATTTTA',{fontFamily : 'Courier', fontSize: 22, fill : 0x20124d});
     tgtGeneText.x = 15;
     tgtGeneText.y = 670;
-    let easyBtn = new PIXI.Text("START: \nLeisure (easy)", { fill : 0x20124d });
+    let easyBtn = new PIXI.Text("START: \n🌸Leisure (easy)", { fill : 0x20124d });
     easyBtn.interactive = true;
     easyBtn.x = 15;
-    easyBtn.y = 550;
-    let medBtn = new PIXI.Text("Green Thumb (medium)", { fill : 0x20124d });
+    easyBtn.y = 570;
+    let medBtn = new PIXI.Text("🌷Green Thumb (medium)", { fill : 0x20124d });
     medBtn.interactive = true;
     medBtn.x = 15;
-    medBtn.y = 615;
-    let hardBtn = new PIXI.Text("Master Gardener (impossible)", { fill : 0x20124d });
+    medBtn.y = 635;
+    let hardBtn = new PIXI.Text("🌻Master Gardener (impossible)", { fill : 0x20124d });
     hardBtn.interactive = true;
     hardBtn.x = 15;
-    hardBtn.y = 650;
+    hardBtn.y = 670;
 
     //Flower gene traits
     let flowerBreed;
@@ -114,8 +118,8 @@ var gameCode = function() {
     app.stage.addChild(flower);
     app.stage.addChild(statsText);
     app.stage.addChild(ptsText);
-
-
+    app.stage.addChild(tutImg);
+    app.stage.addChild(drum);
 
     app.stage.addChild(easyBtn);
     app.stage.addChild(medBtn);
@@ -156,14 +160,14 @@ if (scene === 2){
     ptsText.y = 530;
     ptsText.text = "points: ";
     statsText.x = 15;
-    statsText.y = 550;
+    statsText.y = 582;
     statsText.text = "traits: ";
     tgtGeneText.y = 620;
     app.stage.removeChild(easyBtn);
     app.stage.removeChild(medBtn);
     app.stage.removeChild(hardBtn);
+    app.stage.removeChild(tutImg);
 
-    app.stage.addChild(drum);
     app.stage.addChild(geneText);
     app.stage.addChild(tgtGeneText);
 
@@ -335,7 +339,7 @@ if (scene === 2){
 
         newTex = PIXI.Texture.from(`img/slices/${shortFlowerGene}.png`);
 
-        statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + "\ncolor: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + "\nheight: " + Math.round(heightt);
+        statsText.text = "breed: " + shortFlowerGene[0] + " leaves: " + shortFlowerGene[1] + " color: " + shortFlowerGene[2] + " shape: " + shortFlowerGene[3] + " height: " + Math.round(heightt);
         
         //POINT ADDER maybe if perfect plant add multiplier 1.1x too...
         if(shortFlowerGene == 'obpt'){pts *= 1.1; pts = Math.round(pts); goalFlower++;}
@@ -358,8 +362,8 @@ if (scene === 2){
         
      }
         //WIN CONDITION
-        if (pts > 20000){
-            geneText.y = 200;
+        if (pts > 100000){
+            geneText.y = 210;
             geneText.text = "YOU WIN! POINTS: " + pts + "\nWinning orchids: " + goalFlower;
             circleSpeed = 0;
             note.x = -100;
