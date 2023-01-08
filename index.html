@@ -173,9 +173,11 @@ if (scene === 2){
     drum.interactive = true;
     drum.on('pointerdown', function (e) {
         drum.texture = drumHitTex;
+        drum.interactive = false;
         setTimeout(function (e) {
             drum.texture = drumTex;
-        }, 80)
+            drum.interactive = true;
+        }, 290)
     //     ADD playSound();
 
 
