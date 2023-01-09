@@ -6,7 +6,7 @@ let flowerRes = "";
 
 //start gene converter
 function convertToGeneSequence(chars) {
-  console.log("strt");
+
   const geneSequenceMap = {
     c: "CCCC",
     t: "TTTA",
@@ -27,11 +27,11 @@ function convertToGeneSequence(chars) {
   for (const char of chars) {
     geneSequence += geneSequenceMap[char];
   }
-  console.log(geneSequence);
+  
   return geneSequence;
 }
 
-console.log("goal:"+ convertToGeneSequence("obpt"));
+
 
 //end gene converter
 
@@ -163,7 +163,7 @@ function generate(populationSize, target, mutationRate, generations) {
   // Print the results
   //console.log(membersKeys[0]); //THE ONE THAT EFFECTS FLOWER
   flowerRes = membersKeys[0];
-  console.log(flowerRes);
+
 
   if (membersKeys[0][3] == 'l') {  //height optimally is L, assign flower heightt var to letter
     heightt = 150;
@@ -171,7 +171,7 @@ function generate(populationSize, target, mutationRate, generations) {
   else {
     heightt = membersKeys[0][3].charCodeAt(); //height is the char code
   }
-  console.log(`${perfectCandidatesNum ? perfectCandidatesNum.length : 0} member(s) typed "${target}"`);
+  //console.log(`${perfectCandidatesNum ? perfectCandidatesNum.length : 0} member(s) typed "${target}"`);
 }
 
 // for (let i = 0; i < 30; i++) {
