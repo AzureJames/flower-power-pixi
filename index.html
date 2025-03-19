@@ -39,23 +39,30 @@ var gameCode = async function() {
     await app.init({ width: 500, height: 800 });
     document.body.appendChild(app.canvas);
 
+    // Load the bunny texture
+    const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
+
+    // Create a bunny Sprite
+    const bunny = new Sprite(texture);
+
+    
     //sprites
-    let drumTex = PIXI.Texture.from('img/drum.png');
-    let drumHitTex = PIXI.Texture.from('img/drumhit.png');
-    let drum = PIXI.Sprite.from(drumTex);
+    let drumTex = await PIXI.Assets.load('img/drum.png');
+    let drumHitTex = await PIXI.Assets.load('img/drumhit.png');
+    let drum = new PIXI.Sprite(drumTex);
         drum.x = 270; drum.y = 400;
-    let drumhit = PIXI.Sprite.from('img/drumhit.png');
-    let bg = PIXI.Sprite.from('img/background.jpg');
+    let drumhit = new PIXI.Sprite('img/drumhit.png');
+    let bg = new PIXI.Sprite('img/background.jpg');
     let newTex;
-    let flowerTex = PIXI.Texture.from('img/slices/obpt.png');
-    let stFlowerTex = PIXI.Texture.from('img/slices/obns.png');
-    let flower = PIXI.Sprite.from(flowerTex);
+    let flowerTex = await PIXI.Assets.load('img/slices/obpt.png');
+    let stFlowerTex = await PIXI.Assets.load('img/slices/obns.png');
+    let flower = new PIXI.Sprite(flowerTex);
         flower.x = 5; flower.y = 300;
         flower.height = 240;
-    let tutImg = PIXI.Sprite.from('img/tutorialpic.jpg');
+    let tutImg = new PIXI.Sprite('img/tutorialpic.jpg');
     tutImg.x = 15; tutImg.y = 1;
     tutImg.height = 220; tutImg.width = 220;
-    let note = PIXI.Sprite.from('img/button.png');
+    let note = new PIXI.Sprite('img/button.png');
         // note.anchor.set(0.5, 0.5);
         note.y = 72; note.x = 500;
     let stats = new Text('This is a PixiJS text', {
